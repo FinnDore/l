@@ -1,0 +1,21 @@
+property the_path : "/Users/finn/Desktop/"
+set the_folder to (POSIX file the_path) as alias
+
+property the_file_path : "/Users/finn/Desktop/a.txt"
+set the_file to (POSIX file the_file_path)
+
+tell application "Finder"
+	activate
+	if Finder window 1 exists then
+		set target of window 1 to the_folder
+	else
+		open the_folder
+	end if
+	
+	set thisFolder to the target of the front window as alias
+	set newFile to "a.txt"
+	if not (exists (file newFile)) then
+		make new file at thisFolder with properties {name:newFile, file type:"TEXT", creator type:"ttxt"}
+	end if
+	open file newFile
+end tell
