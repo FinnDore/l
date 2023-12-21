@@ -1,7 +1,7 @@
 property the_path : "/Users/finn/Desktop/"
 set the_folder to (POSIX file the_path) as alias
 
-property the_file_path : "/Users/finn/Desktop/a.txt"
+property the_file_path : "/Users/finn/Desktop/logfile.txt"
 set the_file to (POSIX file the_file_path)
 
 tell application "Finder"
@@ -13,9 +13,52 @@ tell application "Finder"
 	end if
 	
 	set thisFolder to the target of the front window as alias
-	set newFile to "a.txt"
+	set newFile to "logfile.txt"
 	if not (exists (file newFile)) then
 		make new file at thisFolder with properties {name:newFile, file type:"TEXT", creator type:"ttxt"}
 	end if
 	open file newFile
+	
+	tell application "System Events"
+		delay 0.1
+		keystroke "a" using command down
+		delay 0.1
+		keystroke (key code 124)
+		delay 0.1
+		keystroke return
+		delay 0.1
+		keystroke "h"
+		delay 0.1
+		keystroke "e"
+		delay 0.1
+		keystroke "l"
+		delay 0.1
+		keystroke "l"
+		delay 0.1
+		keystroke "o"
+		delay 0.1
+		keystroke " "
+		delay 0.25
+		keystroke "w"
+		delay 0.25
+		keystroke "o"
+		delay 0.25
+		keystroke "r"
+		delay 0.25
+		keystroke "l"
+		delay 0.25
+		keystroke "d"
+	end tell
+	tell application "TextEdit"
+		save (first document whose path is the_file_path)
+		close (first document whose path is the_file_path)
+	end tell
+	
+	close Finder window 1
+	--tell application "TextEdit" to close document "logfile.txt"
+	--tell application "TextEdit"
+	--	save newFile
+	--	close newFile
+	--end tell
 end tell
+
