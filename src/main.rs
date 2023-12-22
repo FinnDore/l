@@ -14,7 +14,7 @@ fn main() {
         }
 
         print!("{}", line);
-        Command::new("src/open-log.appl")
+        Command::new("src/write-log.appl")
             .arg(format!(
                 "{} {}",
                 Utc::now().format("%Y-%m-%dT%H:%M:%S"),
