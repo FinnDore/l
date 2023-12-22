@@ -1,0 +1,44 @@
+#!/usr/bin/osascript
+
+on run argv
+    set basePath to "/Users/finn/Desktop/"
+    set logFileName to "logfile.txt"
+    set baseFolder to (POSIX file basePath) as alias
+    set logFilePath to basePath & logFileName
+
+    set logMessage to (first item of argv)
+    tell application "Finder"
+        open baseFolder
+        set isNew to false
+        
+        if not (exists (file logFileName)) then
+            make new file at baseFolder with properties {name:logFileName, file type:"TEXT", creator type:"ttxt"}
+            set isNew to true
+        end if
+        
+        open file logFileName
+        
+        tell application "System Events"
+            delay 0.25
+            if not isNew then
+                keystroke "a" using command down
+                delay 0.1
+                keystroke (key code 124)
+                delay 0.1
+                keystroke return
+            end if
+            
+            repeat with char in (characters of logMessage)
+                delay 0.1
+                keystroke char
+            end repeat
+        end tell
+        
+        tell application "TextEdit"
+            save (first document whose path is logFilePath)
+            close (first document whose path is logFilePath)
+        end tell
+        
+        close Finder window 1
+    end tell
+end run
