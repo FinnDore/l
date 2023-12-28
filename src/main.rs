@@ -3,6 +3,10 @@ use std::process::Command;
 
 use chrono::Utc;
 fn main() {
+    Command::new("src/open-media.appl")
+        .output()
+        .expect("Failed to execute command");
+
     let stdin = io::stdin();
     let mut stdin = stdin.lock(); // locking is optional
 

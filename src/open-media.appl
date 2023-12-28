@@ -1,0 +1,27 @@
+#!/usr/bin/osascript
+
+set basePath to "/Users/finn/Documents/GitHub/l/media"
+set baseFolder to (POSIX file basePath) as alias
+
+tell application "Finder"
+	open baseFolder
+    set other to (every item of baseFolder whose name extension is not equal to "mp4")
+	
+	repeat with filet in other
+		open filet
+	end repeat
+
+    close Finder window 1
+	set videos to (every item of baseFolder whose name extension is "mp4")
+	tell application "QuickTime Player"
+		activate
+		repeat with filet in videos
+			set theMovie to open (filet as alias)
+			tell theMovie
+				set the looping of theMovie to true
+				play
+			end tell
+		end repeat
+	end tell
+	
+end tell
